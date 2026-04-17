@@ -22,21 +22,21 @@ app.use(express.json());
 // ============================================
 // CONFIGURATION NODEMAILER
 // ============================================
-/*const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-});*/
+});
 
-const transporter = nodemailer.createTransport({
+/*const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "brbergeret@gmail.com", // ton vrai email ici
     pass: "ocakcnfxsoueqfll", // ton mot de passe d'application ici
   },
-});
+});*/
 
 // ============================================
 // ROUTE POST /contact
@@ -67,7 +67,8 @@ app.post("/contact", async (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: "brbergeret@gmail.com", // ← ton email en dur ici
+    //to: "brbergeret@gmail.com", // ← ton email en dur ici
+    to: process.env.EMAIL_USER,
     replyTo: email,
     subject: `Portfolio — Message de ${nom}`,
     text: `Nom : ${nom}\nEmail : ${email}\n\nMessage :\n${message}`,

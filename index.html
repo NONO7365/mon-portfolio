@@ -5,28 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mon Portfolio</title>
     <link rel="stylesheet" href="src/output.css" />
+
     <style>
-      /* Halo curseur — uniquement en mode sombre */
+      html.dark body {
+        background-color: #000000;
+        color: #ffffff;
+      }
+      html:not(.dark) body {
+        background-color: #f5f2f2;
+        color: #000000;
+      }
+      html:not(.dark) header {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-color: rgba(0, 0, 0, 0.1);
+      }
       #cursor-halo {
         position: fixed;
-        width: 320px;
-        height: 320px;
+        width: 400px;
+        height: 400px;
         border-radius: 50%;
         pointer-events: none;
         transform: translate(-50%, -50%);
         background: radial-gradient(
           circle,
-          rgba(255, 255, 255, 0.07) 0%,
+          rgba(255, 255, 255, 0.45) 0%,
           transparent 70%
         );
         transition: opacity 0.3s ease;
         z-index: 9999;
-      }
-      html.dark #cursor-halo {
-        opacity: 1;
-      }
-      html:not(.dark) #cursor-halo {
         opacity: 0;
+      }
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* Le contenu passe au-dessus du canvas */
+      header,
+      main,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      #cursor-halo {
+        z-index: 9999;
+      }
+      /* Textes en mode clair */
+      html:not(.dark) body {
+        background-color: #f8f8f8;
+        color: #111111;
+      }
+
+      html:not(.dark) h1,
+      html:not(.dark) h2,
+      html:not(.dark) h3,
+      html:not(.dark) p,
+      html:not(.dark) a,
+      html:not(.dark) span,
+      html:not(.dark) label {
+        color: #111111;
+      }
+
+      html:not(.dark) .text-white\/40,
+      html:not(.dark) .text-white\/50,
+      html:not(.dark) .text-white\/60,
+      html:not(.dark) .text-white\/70 {
+        color: #555555 !important;
+      }
+
+      /* Cartes projets en mode clair */
+      html:not(.dark) article {
+        background-color: #ffffff;
+        border-color: rgba(0, 0, 0, 0.12) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      html:not(.dark) article h3 {
+        color: #111111 !important;
+      }
+
+      html:not(.dark) article p {
+        color: #555555 !important;
+      }
+
+      html:not(.dark) article a {
+        color: #888888 !important;
+      }
+
+      /* Formulaire en mode clair */
+      html:not(.dark) input,
+      html:not(.dark) textarea {
+        background-color: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.15) !important;
+        color: #111111 !important;
+      }
+
+      html:not(.dark) input::placeholder,
+      html:not(.dark) textarea::placeholder {
+        color: #aaaaaa !important;
+      }
+
+      /* Boutons en mode clair */
+      html:not(.dark) button[type="submit"] {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+      }
+
+      /* Navigation en mode clair */
+      html:not(.dark) nav span,
+      html:not(.dark) nav a {
+        color: #111111 !important;
+      }
+
+      html:not(.dark) #theme-toggle {
+        border-color: rgba(0, 0, 0, 0.2) !important;
+        color: #111111 !important;
+      }
+
+      /* Bouton hero en mode clair */
+      html:not(.dark) a.self-start {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+      }
+
+      /* Footer en mode clair */
+      html:not(.dark) footer {
+        border-color: rgba(0, 0, 0, 0.1) !important;
+      }
+
+      html:not(.dark) footer p {
+        color: #888888 !important;
+      }
+
+      /* Barres de progression */
+      .barre-fond {
+        background-color: rgba(255,255,255,0.1);
+      }
+      html:not(.dark) .barre-fond {
+        background-color: rgba(0,0,0,0.08);
+      }
+      .barre-progression {
+        background: linear-gradient(90deg, #6366f1, #06b6d4);
+      }
+
+      /* Étiquettes */
+      .etiquette {
+        background-color: rgba(255,255,255,0.06);
+        color: rgba(255,255,255,0.6);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      html:not(.dark) .etiquette {
+        background-color: rgba(0,0,0,0.04);
+        color: rgba(0,0,0,0.5);
+        border: 1px solid rgba(0,0,0,0.1);
+      }
+
+      /* Pourcentage */
+      .pourcentage {
+        color: #6366f1;
+      }
+
+      /* Boutons filtres */
+      .filtre-btn {
+        border-color: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.5);
+      }
+      .filtre-btn.actif {
+        background-color: #6366f1;
+        border-color: #6366f1;
+        color: #ffffff;
+      }
+      html:not(.dark) .filtre-btn {
+        border-color: rgba(0,0,0,0.15);
+        color: rgba(0,0,0,0.5);
+      }
+      html:not(.dark) .filtre-btn.actif {
+        background-color: #6366f1;
+        border-color: #6366f1;
+        color: #ffffff;
       }
     </style>
   </head>
@@ -34,6 +196,7 @@
   <body
     class="bg-black text-white dark:bg-black dark:text-white transition-colors duration-300"
   >
+    <canvas id="bg-canvas"></canvas>
     <!-- Halo curseur -->
     <div id="cursor-halo"></div>
 
@@ -44,7 +207,7 @@
       <nav
         class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between"
       >
-        <span class="font-bold text-lg tracking-tight">Bruno BERGERET</span>
+        <span class="font-bold text-lg tracking-tight">BB-Digital</span>
         <ul class="hidden md:flex gap-8 text-sm text-white/70">
           <li>
             <a href="#presentation" class="hover:text-white transition"
@@ -77,7 +240,8 @@
           Développeur web
         </p>
         <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
-          Bonjour,<br />je suis <span class="text-white/60">Bruno BERGERET</span>
+          Bonjour,<br />je suis
+          <span class="text-white/60">Bruno BERGERET</span>
         </h1>
         <p class="text-white/50 text-lg max-w-xl mb-10">
           Je crée des expériences numériques soignées, du design à la mise en
@@ -91,6 +255,122 @@
         </a>
       </section>
 
+      <!-- ========== COMPÉTENCES ========== -->
+      <section id="competences" class="py-24">
+        <h2 class="text-3xl font-bold mb-12">Compétences</h2>
+
+        <!-- Filtres -->
+        <div class="flex gap-3 mb-10" id="filtres-competences">
+          <button data-filtre="tous"
+            class="filtre-btn actif px-5 py-2 rounded-full text-sm font-medium border transition">
+            Tous
+          </button>
+          <button data-filtre="frontend"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+            Frontend
+          </button>
+          <button data-filtre="backend"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+            Backend
+          </button>
+          <button data-filtre="devops"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+            DevOps
+          </button>
+        </div>
+
+        <!-- Grille compétences -->
+        <div class="grid md:grid-cols-2 gap-5" id="grille-competences">
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">HTML / CSS</h3>
+              <span class="pourcentage text-sm font-medium">90%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 90%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">sémantique</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">responsive</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">animations</span>
+            </div>
+          </div>
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">JavaScript</h3>
+              <span class="pourcentage text-sm font-medium">80%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 80%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">ES6+</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">DOM</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">fetch</span>
+            </div>
+          </div>
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">Tailwind CSS</h3>
+              <span class="pourcentage text-sm font-medium">85%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 85%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">dark mode</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">composants</span>
+            </div>
+          </div>
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="backend">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">Node.js / Express</h3>
+              <span class="pourcentage text-sm font-medium">70%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 70%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">API REST</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">middleware</span>
+            </div>
+          </div>
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="backend">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">SQL / NoSQL</h3>
+              <span class="pourcentage text-sm font-medium">65%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 65%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">MySQL</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="competence-card border rounded-2xl p-6" data-categorie="devops">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-lg">Git / GitHub</h3>
+              <span class="pourcentage text-sm font-medium">80%</span>
+            </div>
+            <div class="barre-fond rounded-full h-1.5 mb-4">
+              <div class="barre-progression rounded-full h-1.5" style="width: 80%"></div>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="etiquette text-xs px-3 py-1 rounded-full">branches</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">CI/CD</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <!-- ========== PROJETS ========== -->
       <section id="projets" class="py-24">
         <h2 class="text-3xl font-bold mb-12">Mes projets</h2>
@@ -98,7 +378,11 @@
           <article
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
-            <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div>
+            <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
+             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img src="images/projet1.png" alt="Aperçu projet 1"
+                class="w-full h-full object-cover" />
+            </div>
             <h3 class="font-semibold text-lg mb-2">Projet 1</h3>
             <p class="text-white/50 text-sm mb-4">
               Description courte du projet et des technologies utilisées.
@@ -108,12 +392,22 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
+            <br>
+            <div class="flex gap-2 flex-wrap mt-4">
+            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
+          </div>
           </article>
 
           <article
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
-            <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div>
+            <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
+             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img src="images/projet2.png" alt="Aperçu projet 2"
+                class="w-full h-full object-cover" />
+            </div>
             <h3 class="font-semibold text-lg mb-2">Projet 2</h3>
             <p class="text-white/50 text-sm mb-4">
               Description courte du projet et des technologies utilisées.
@@ -123,12 +417,22 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
+            <br>
+            <div class="flex gap-2 flex-wrap mt-4">
+            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
+          </div>
           </article>
 
           <article
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
-            <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div>
+            <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
+             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img src="images/projet3.png" alt="Aperçu projet 3"
+                class="w-full h-full object-cover" />
+            </div>
             <h3 class="font-semibold text-lg mb-2">Projet 3</h3>
             <p class="text-white/50 text-sm mb-4">
               Description courte du projet et des technologies utilisées.
@@ -138,6 +442,12 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
+            <br>
+            <div class="flex gap-2 flex-wrap mt-4">
+            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
+          </div>
           </article>
         </div>
       </section>
