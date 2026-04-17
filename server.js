@@ -11,8 +11,8 @@ if (fs.existsSync(envPath)) {
       }
     });
 }
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "OK" : "VIDE");
+/*console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "OK" : "VIDE");*/
 
 const express = require("express");
 const nodemailer = require("nodemailer");
