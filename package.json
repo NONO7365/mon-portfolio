@@ -2,11 +2,10 @@
   "name": "mon-portfolio",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "tailwindcss -i ./src/input.css -o ./src/output.css",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tailwindcss -i ./src/input.css -o ./src/output.css"
   },
   "keywords": [],
   "author": "",
