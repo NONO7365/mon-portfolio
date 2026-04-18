@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "tailwindcss -i ./src/input.css -o ./src/output.css"
+    "css": "tailwindcss -i ./src/input.css -o ./src/output.css"
   },
   "keywords": [],
   "author": "",
