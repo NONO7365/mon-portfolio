@@ -59,6 +59,22 @@
         z-index: 9999;
         opacity: 0;
       }
+
+      /* Inputs opaques en mode sombre */
+      html.dark input,
+      html.dark textarea {
+        background-color: #1a1a1a !important;
+        position: relative;
+        z-index: 3;
+      }
+
+      html.dark .competence-card,
+      html.dark article {
+        background-color: #0d0d0d !important;
+        position: relative;
+        z-index: 3;
+      }
+
       #bg-canvas {
         position: fixed;
         top: 0;
@@ -176,6 +192,17 @@
       }
       .barre-progression {
         background: linear-gradient(90deg, #6366f1, #06b6d4);
+      }
+
+      html.dark form {
+        background-color: transparent;
+        position: relative;
+        z-index: 3;
+      }
+
+      html.dark section {
+        position: relative;
+        z-index: 3;
       }
 
       /* Étiquettes */
