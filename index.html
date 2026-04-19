@@ -20,22 +20,28 @@
         border-color: rgba(0, 0, 0, 0.1);
       }
 
+      /* Fond des éléments en mode sombre */
+      html.dark article {
+        background-color: rgba(255, 255, 255, 0.03);
+        position: relative;
+        z-index: 2;
+      }
 
-      html.dark #bg-canvas {
-          z-index: 0;
-        }
+      html.dark .competence-card {
+        background-color: rgba(255, 255, 255, 0.03);
+        position: relative;
+        z-index: 2;
+      }
 
-        html.dark header,
-        html.dark main,
-        html.dark footer,
-        html.dark article,
-        html.dark section,
-        html.dark form {
-          position: relative;
-          z-index: 1;
-        }
-      
+      html.dark form {
+        position: relative;
+        z-index: 2;
+      }
 
+      html.dark section {
+        position: relative;
+        z-index: 2;
+      }
 
       #cursor-halo {
         position: fixed;
@@ -163,10 +169,10 @@
 
       /* Barres de progression */
       .barre-fond {
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(255, 255, 255, 0.1);
       }
       html:not(.dark) .barre-fond {
-        background-color: rgba(0,0,0,0.08);
+        background-color: rgba(0, 0, 0, 0.08);
       }
       .barre-progression {
         background: linear-gradient(90deg, #6366f1, #06b6d4);
@@ -174,14 +180,14 @@
 
       /* Étiquettes */
       .etiquette {
-        background-color: rgba(255,255,255,0.06);
-        color: rgba(255,255,255,0.6);
-        border: 1px solid rgba(255,255,255,0.1);
+        background-color: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       html:not(.dark) .etiquette {
-        background-color: rgba(0,0,0,0.04);
-        color: rgba(0,0,0,0.5);
-        border: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.1);
       }
 
       /* Pourcentage */
@@ -191,8 +197,8 @@
 
       /* Boutons filtres */
       .filtre-btn {
-        border-color: rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.5);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.5);
       }
       .filtre-btn.actif {
         background-color: #6366f1;
@@ -200,8 +206,8 @@
         color: #ffffff;
       }
       html:not(.dark) .filtre-btn {
-        border-color: rgba(0,0,0,0.15);
-        color: rgba(0,0,0,0.5);
+        border-color: rgba(0, 0, 0, 0.15);
+        color: rgba(0, 0, 0, 0.5);
       }
       html:not(.dark) .filtre-btn.actif {
         background-color: #6366f1;
@@ -233,7 +239,9 @@
             >
           </li>
           <li>
-            <a href="#competences" class="hover:text-white transition">Compétences</a>
+            <a href="#competences" class="hover:text-white transition"
+              >Compétences</a
+            >
           </li>
           <li>
             <a href="#projets" class="hover:text-white transition">Projets</a>
@@ -282,113 +290,179 @@
 
         <!-- Filtres -->
         <div class="flex gap-3 mb-10" id="filtres-competences">
-          <button data-filtre="tous"
-            class="filtre-btn actif px-5 py-2 rounded-full text-sm font-medium border transition">
+          <button
+            data-filtre="tous"
+            class="filtre-btn actif px-5 py-2 rounded-full text-sm font-medium border transition"
+          >
             Tous
           </button>
-          <button data-filtre="frontend"
-            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+          <button
+            data-filtre="frontend"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition"
+          >
             Frontend
           </button>
-          <button data-filtre="backend"
-            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+          <button
+            data-filtre="backend"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition"
+          >
             Backend
           </button>
-          <button data-filtre="devops"
-            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition">
+          <button
+            data-filtre="devops"
+            class="filtre-btn px-5 py-2 rounded-full text-sm font-medium border transition"
+          >
             DevOps
           </button>
         </div>
 
         <!-- Grille compétences -->
         <div class="grid md:grid-cols-2 gap-5" id="grille-competences">
-
-          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="frontend"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">HTML / CSS</h3>
               <span class="pourcentage text-sm font-medium">90%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 90%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 90%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-              <span class="etiquette text-xs px-3 py-1 rounded-full">sémantique</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">responsive</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">animations</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >sémantique</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >responsive</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >animations</span
+              >
             </div>
           </div>
 
-          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="frontend"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">JavaScript</h3>
               <span class="pourcentage text-sm font-medium">80%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 80%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 80%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
               <span class="etiquette text-xs px-3 py-1 rounded-full">ES6+</span>
               <span class="etiquette text-xs px-3 py-1 rounded-full">DOM</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">fetch</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >fetch</span
+              >
             </div>
           </div>
 
-          <div class="competence-card border rounded-2xl p-6" data-categorie="frontend">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="frontend"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">Tailwind CSS</h3>
               <span class="pourcentage text-sm font-medium">85%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 85%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 85%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-              <span class="etiquette text-xs px-3 py-1 rounded-full">dark mode</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">composants</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >dark mode</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >composants</span
+              >
             </div>
           </div>
 
-          <div class="competence-card border rounded-2xl p-6" data-categorie="backend">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="backend"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">Node.js / Express</h3>
               <span class="pourcentage text-sm font-medium">70%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 70%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 70%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-              <span class="etiquette text-xs px-3 py-1 rounded-full">API REST</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">middleware</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >API REST</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >middleware</span
+              >
             </div>
           </div>
 
-          <div class="competence-card border rounded-2xl p-6" data-categorie="backend">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="backend"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">SQL / NoSQL</h3>
               <span class="pourcentage text-sm font-medium">65%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 65%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 65%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-              <span class="etiquette text-xs px-3 py-1 rounded-full">MySQL</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">MongoDB</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >MySQL</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >MongoDB</span
+              >
             </div>
           </div>
 
-          <div class="competence-card border rounded-2xl p-6" data-categorie="devops">
+          <div
+            class="competence-card border rounded-2xl p-6"
+            data-categorie="devops"
+          >
             <div class="flex justify-between items-center mb-3">
               <h3 class="font-semibold text-lg">Git / GitHub</h3>
               <span class="pourcentage text-sm font-medium">80%</span>
             </div>
             <div class="barre-fond rounded-full h-1.5 mb-4">
-              <div class="barre-progression rounded-full h-1.5" style="width: 80%"></div>
+              <div
+                class="barre-progression rounded-full h-1.5"
+                style="width: 80%"
+              ></div>
             </div>
             <div class="flex gap-2 flex-wrap">
-              <span class="etiquette text-xs px-3 py-1 rounded-full">branches</span>
-              <span class="etiquette text-xs px-3 py-1 rounded-full">CI/CD</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >branches</span
+              >
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >CI/CD</span
+              >
             </div>
           </div>
-
         </div>
       </section>
 
@@ -400,9 +474,12 @@
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
             <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
-             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
-              <img src="images/projet1.webp" alt="Aperçu projet 1"
-                class="w-full h-full object-cover" />
+            <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img
+                src="images/projet1.webp"
+                alt="Aperçu projet 1"
+                class="w-full h-full object-cover"
+              />
             </div>
             <h3 class="font-semibold text-lg mb-2">Projet 1</h3>
             <p class="text-white/50 text-sm mb-4">
@@ -413,21 +490,26 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
-            <br>
+            <br />
             <div class="flex gap-2 flex-wrap mt-4">
-            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
-          </div>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >JavaScript</span
+              >
+            </div>
           </article>
 
           <article
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
             <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
-             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
-              <img src="images/projet2.webp" alt="Aperçu projet 2"
-                class="w-full h-full object-cover" />
+            <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img
+                src="images/projet2.webp"
+                alt="Aperçu projet 2"
+                class="w-full h-full object-cover"
+              />
             </div>
             <h3 class="font-semibold text-lg mb-2">Projet 2</h3>
             <p class="text-white/50 text-sm mb-4">
@@ -438,21 +520,26 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
-            <br>
+            <br />
             <div class="flex gap-2 flex-wrap mt-4">
-            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
-          </div>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >JavaScript</span
+              >
+            </div>
           </article>
 
           <article
             class="border border-white/10 rounded-2xl p-6 hover:border-white/30 transition group"
           >
             <!-- <div class="w-10 h-10 rounded-lg bg-white/5 mb-4"></div> -->
-             <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
-              <img src="images/projet3.webp" alt="Aperçu projet 3"
-                class="w-full h-full object-cover" />
+            <div class="w-full h-40 rounded-lg overflow-hidden mb-4">
+              <img
+                src="images/projet3.webp"
+                alt="Aperçu projet 3"
+                class="w-full h-full object-cover"
+              />
             </div>
             <h3 class="font-semibold text-lg mb-2">Projet 3</h3>
             <p class="text-white/50 text-sm mb-4">
@@ -463,12 +550,14 @@
               class="text-sm text-white/40 group-hover:text-white transition"
               >Voir le projet →</a
             >
-            <br>
+            <br />
             <div class="flex gap-2 flex-wrap mt-4">
-            <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
-            <span class="etiquette text-xs px-3 py-1 rounded-full">JavaScript</span>
-          </div>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">HTML</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full">CSS</span>
+              <span class="etiquette text-xs px-3 py-1 rounded-full"
+                >JavaScript</span
+              >
+            </div>
           </article>
         </div>
       </section>
