@@ -27,7 +27,9 @@ app.use(
     origin: [
       "http://127.0.0.1:5500",
       "http://127.0.0.1:5501",
-      "https://mon-portfolio-gmyb.onrender.com",
+      //"https://mon-portfolio-gmyb.onrender.com",
+      "https://mon-portfolio-git-main-nono7365s-projects.vercel.app",
+      "https://mon-portfolio-3rcn0Omzb-nono7365s-projects.vercel.app",
     ],
   }),
 );
