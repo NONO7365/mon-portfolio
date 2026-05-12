@@ -39,7 +39,7 @@ app.post("/contact", async (req, res) => {
   }
 
   const data = JSON.stringify({
-    sender: { name: "Portfolio BB-Digital", email: "no-reply@brevo.com" },
+    sender: { name: "Portfolio BB-Digital", email: "brbergeret@gmail.com" },
     to: [{ email: "brbergeret@gmail.com" }],
     replyTo: { email: email, name: nom },
     subject: "Portfolio - Message de " + nom,
