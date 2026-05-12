@@ -1,4 +1,3 @@
-
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
@@ -40,19 +39,20 @@ app.post("/contact", async (req, res) => {
   }
 
   const data = JSON.stringify({
-    sender: { name: "Portfolio", email: "brbergeret@gmail.com" },
+    sender: { name: "Portfolio BB-Digital", email: "no-reply@brevo.com" },
     to: [{ email: "brbergeret@gmail.com" }],
     replyTo: { email: email, name: nom },
     subject: "Portfolio - Message de " + nom,
     htmlContent:
-      "<h2>Nouveau message</h2>" +
+      "<h2>Nouveau message depuis le portfolio</h2>" +
       "<p><strong>Nom :</strong> " +
       nom +
       "</p>" +
       "<p><strong>Email :</strong> " +
       email +
       "</p>" +
-      "<hr><p>" +
+      "<hr>" +
+      "<p>" +
       message.replace(/\n/g, "<br>") +
       "</p>",
   });
@@ -63,6 +63,7 @@ app.post("/contact", async (req, res) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Content-Length": Buffer.byteLength(data),
       "api-key": process.env.BREVO_API_KEY,
     },
   };
