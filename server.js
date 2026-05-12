@@ -26,6 +26,7 @@ app.use(
       "http://127.0.0.1:5500",
       "http://127.0.0.1:5501",
       "https://mon-portfolio-coral-rho.vercel.app",
+      "https://mon-portfolio-git-main-nono7365s-projects.vercel.app",
     ],
   }),
 );
