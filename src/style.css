@@ -1,0 +1,208 @@
+/* Canvas de fond */
+      #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* Halo curseur */
+      #cursor-halo {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.45) 0%,
+          transparent 70%
+        );
+        transition: opacity 0.3s ease;
+        z-index: 9999;
+        opacity: 0;
+      }
+
+      /* Contenu au-dessus du canvas */
+      header,
+      main,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* MODE SOMBRE */
+      html.dark body {
+        background-color: #000000;
+        color: #ffffff;
+      }
+
+      html.dark article,
+      html.dark .competence-card {
+        background-color: #111111 !important;
+        position: relative;
+        z-index: 2;
+      }
+
+      html.dark input,
+      html.dark textarea {
+        background-color: #1a1a1a !important;
+        position: relative;
+        z-index: 2;
+      }
+
+      html.dark section {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* MODE CLAIR */
+      html:not(.dark) body {
+        background-color: #f8f8f8;
+        color: #111111;
+      }
+
+      html:not(.dark) header {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      html:not(.dark) h1,
+      html:not(.dark) h2,
+      html:not(.dark) h3,
+      html:not(.dark) p,
+      html:not(.dark) a,
+      html:not(.dark) span,
+      html:not(.dark) label {
+        color: #111111;
+      }
+
+      html:not(.dark) .text-white\/40,
+      html:not(.dark) .text-white\/50,
+      html:not(.dark) .text-white\/60,
+      html:not(.dark) .text-white\/70 {
+        color: #555555 !important;
+      }
+
+      html:not(.dark) article {
+        background-color: #ffffff;
+        border-color: rgba(0, 0, 0, 0.12) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      html:not(.dark) article h3 {
+        color: #111111 !important;
+      }
+      html:not(.dark) article p {
+        color: #555555 !important;
+      }
+      html:not(.dark) article a {
+        color: #888888 !important;
+      }
+
+      html:not(.dark) input,
+      html:not(.dark) textarea {
+        background-color: #ffffff !important;
+        border-color: rgba(0, 0, 0, 0.15) !important;
+        color: #111111 !important;
+      }
+
+      html:not(.dark) input::placeholder,
+      html:not(.dark) textarea::placeholder {
+        color: #aaaaaa !important;
+      }
+
+      html:not(.dark) button[type="submit"] {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+      }
+
+      html:not(.dark) nav span,
+      html:not(.dark) nav a {
+        color: #111111 !important;
+      }
+
+      html:not(.dark) #theme-toggle {
+        border-color: rgba(0, 0, 0, 0.2) !important;
+        color: #111111 !important;
+      }
+
+      html:not(.dark) a.self-start {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+      }
+
+      html:not(.dark) footer {
+        border-color: rgba(0, 0, 0, 0.1) !important;
+      }
+      html:not(.dark) footer p {
+        color: #888888 !important;
+      }
+
+      html:not(.dark) article,
+      html:not(.dark) .competence-card {
+        position: relative;
+        z-index: 2;
+      }
+
+      html:not(.dark) section {
+        position: relative;
+        z-index: 2;
+      }
+      html:not(.dark) .competence-card {
+        background-color: #ffffff !important;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Barres de progression */
+      .barre-fond {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      html:not(.dark) .barre-fond {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+      .barre-progression {
+        background: linear-gradient(90deg, #6366f1, #06b6d4);
+      }
+
+      /* Étiquettes */
+      .etiquette {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      html:not(.dark) .etiquette {
+        background-color: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      /* Pourcentage */
+      .pourcentage {
+        color: #6366f1;
+      }
+
+      /* Boutons filtres */
+      .filtre-btn {
+        border-color: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .filtre-btn.actif {
+        background-color: #6366f1;
+        border-color: #6366f1;
+        color: #ffffff;
+      }
+      html:not(.dark) .filtre-btn {
+        border-color: rgba(0, 0, 0, 0.15);
+        color: rgba(0, 0, 0, 0.5);
+      }
+      html:not(.dark) .filtre-btn.actif {
+        background-color: #6366f1;
+        border-color: #6366f1;
+        color: #ffffff;
+      }
