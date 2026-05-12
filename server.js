@@ -1,9 +1,4 @@
-console.log(
-  "BREVO_API_KEY reçue:",
-  process.env.BREVO_API_KEY
-    ? process.env.BREVO_API_KEY.substring(0, 10) + "..."
-    : "VIDE",
-);
+git add server.js
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
