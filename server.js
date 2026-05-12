@@ -1,7 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const express = require("express");
+const cors = require("cors");
+const https = require("https");
 
-// Lecture du .env en local
 const envPath = path.join(__dirname, ".env");
 if (fs.existsSync(envPath)) {
   fs.readFileSync(envPath, "utf8")
@@ -13,10 +15,6 @@ if (fs.existsSync(envPath)) {
       }
     });
 }
-
-const express = require("express");
-const cors = require("cors");
-const Brevo = require("@getbrevo/brevo");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,33 +38,55 @@ app.post("/contact", async (req, res) => {
     return res.status(400).json({ succes: false, erreur: "Champs manquants." });
   }
 
-  try {
-    const apiInstance = new Brevo.TransactionalEmailsApi();
-    const apiKey = apiInstance.authentications["api-key"];
-    apiKey.apiKey = process.env.BREVO_API_KEY;
-
-    const sendSmtpEmail = new Brevo.SendSmtpEmail();
-    sendSmtpEmail.subject = "Portfolio - Message de " + nom;
-    sendSmtpEmail.htmlContent =
-      "<h2>Nouveau message depuis le portfolio</h2>" +
+  const data = JSON.stringify({
+    sender: { name: "Portfolio", email: "brbergeret@gmail.com" },
+    to: [{ email: "brbergeret@gmail.com" }],
+    replyTo: { email: email, name: nom },
+    subject: "Portfolio - Message de " + nom,
+    htmlContent:
+      "<h2>Nouveau message</h2>" +
       "<p><strong>Nom :</strong> " +
       nom +
       "</p>" +
       "<p><strong>Email :</strong> " +
       email +
       "</p>" +
-      "<hr />" +
-      "<p>" +
+      "<hr><p>" +
       message.replace(/\n/g, "<br>") +
-      "</p>";
-    sendSmtpEmail.sender = { name: "Portfolio", email: "brbergeret@gmail.com" };
-    sendSmtpEmail.to = [{ email: "brbergeret@gmail.com" }];
-    sendSmtpEmail.replyTo = { email: email, name: nom };
+      "</p>",
+  });
 
-    await apiInstance.sendTransacEmail(sendSmtpEmail);
+  const options = {
+    hostname: "api.brevo.com",
+    path: "/v3/smtp/email",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "api-key": process.env.BREVO_API_KEY,
+    },
+  };
+
+  try {
+    await new Promise((resolve, reject) => {
+      const request = https.request(options, (response) => {
+        let body = "";
+        response.on("data", (chunk) => (body += chunk));
+        response.on("end", () => {
+          if (response.statusCode >= 200 && response.statusCode < 300) {
+            resolve(body);
+          } else {
+            reject(new Error("Brevo API error: " + body));
+          }
+        });
+      });
+      request.on("error", reject);
+      request.write(data);
+      request.end();
+    });
+
     res.status(200).json({ succes: true, message: "Mail envoye !" });
   } catch (erreur) {
-    console.error("Erreur envoi mail :", erreur);
+    console.error("Erreur envoi mail :", erreur.message);
     res.status(500).json({ succes: false, erreur: "Erreur lors de l'envoi." });
   }
 });
